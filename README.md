@@ -13,7 +13,7 @@
 | **Siying Lin** | @Skypiea041 |Exploratory Data Analysis (EDA), visualization, Sentiment Analysis, Modeling |
 | **Ishita Gabhane** | @ishitagb |EDA, Data Cleaning and performance metrics |
 | **Xiomara Serpa** | @Xioma-S |Advanced modeling (Neural Networks) and hyperparameter tuning |
-| **Chinyere Ugwuanyi** | @ChinyereEU |Feature Engineering, EDA |
+| **Chinyere Ugwuanyi** | @ChinyereEU | Feature Engineering (TF-IDF tuning, metadata feature creation including text length, title length, punctuation density), EDA (text distribution analysis) |
 
 ---
 
@@ -44,8 +44,8 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
-cd REPO_NAME
+git clone https://github.com/accenture-1a-BTT/accenture-1a-team-project.git
+cd accenture-1a-team-project
 python -m venv venv
 source venv/bin/activate   # On Windows use `venv\Scripts\activate`
 pip install -r requirements.txt
@@ -189,6 +189,7 @@ Special thanks to our **Accenture Challenge Advisors**:
 - Isabel Heard  
 
 And the **Break Through Tech AI Program team** for their guidance and support throughout the semester.
+
 
 
 
