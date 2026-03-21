@@ -7,8 +7,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from src.preprocessing import load_and_prepare
 
-MODEL_PATH  = "src/model_cache.joblib"
-VECTOR_PATH = "src/vector_cache.joblib"
+BASE_DIR    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_PATH  = os.path.join(BASE_DIR, "src", "model_cache.joblib")
+VECTOR_PATH = os.path.join(BASE_DIR, "src", "vector_cache.joblib")
 
 @st.cache_resource(show_spinner="Training model on first launch — this takes about 60 seconds...")
 def load_model():
@@ -17,7 +18,11 @@ def load_model():
         vectorizer = joblib.load(VECTOR_PATH)
         return model, vectorizer
 
-    df = load_and_prepare("data/True.csv", "data/Fake.csv")
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    df = load_and_prepare(
+        os.path.join(BASE_DIR, "data", "True.csv"),
+        os.path.join(BASE_DIR, "data", "Fake.csv")
+    )
 
     vectorizer = TfidfVectorizer(
         max_features=10000,
