@@ -14,44 +14,48 @@ st.markdown("""
   html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
     font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--background-color);
   }
 
+  /* ── HEADER ── */
   .header {
-    padding: 2.5rem 0 1.5rem;
-    border-bottom: 0.5px solid rgba(44,44,42,0.18);
+    padding: 2.5rem 0 1.75rem;
+    border-bottom: 0.5px solid rgba(128,128,128,0.2);
     margin-bottom: 2.5rem;
+  }
+  .header-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1D9E75;
+    margin-bottom: 0.75rem;
   }
   .header-title {
     font-family: 'DM Serif Display', serif;
     font-size: 3rem;
     font-weight: 400;
-    color: #1A1A18;
-    margin-bottom: 0.4rem;
-    line-height: 1.1;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    line-height: 1.08;
   }
   .header-title em {
     font-style: italic;
     color: #1D9E75;
   }
-  .header-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #1D9E75;
-    font-weight: 500;
-    margin-bottom: 1rem;
-  }
   .header-meta {
     font-size: 14px;
-    color: #444441;
     font-weight: 400;
+    color: var(--text-color);
+    opacity: 0.65;
     line-height: 1.6;
+    margin-bottom: 1rem;
   }
   .header-links {
     display: flex;
     gap: 0.75rem;
-    margin-top: 1rem;
     flex-wrap: wrap;
   }
   .header-link {
@@ -65,11 +69,13 @@ st.markdown("""
     padding: 0.4rem 1rem;
     border: 0.5px solid #9FE1CB;
     border-radius: 2px;
+    transition: background 0.18s;
   }
   .header-link:hover {
-    background: #E1F5EE;
+    background: rgba(29,158,117,0.1);
   }
 
+  /* ── STATS ROW ── */
   .stats-row {
     display: flex;
     gap: 0.75rem;
@@ -79,30 +85,33 @@ st.markdown("""
   .stat-pill {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
+    font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #444441;
-    font-weight: 500;
-    background: #F4F3EF;
+    color: var(--text-color);
+    opacity: 0.8;
+    background: var(--secondary-background-color);
     padding: 0.4rem 0.85rem;
     border-radius: 2px;
   }
   .stat-pill span {
     color: #0F6E56;
+    opacity: 1;
     font-weight: 600;
   }
 
+  /* ── RESULT CARDS ── */
   .result-card {
     border-radius: 4px;
     padding: 1.5rem 1.75rem;
     margin: 1.5rem 0;
   }
   .result-card.real {
-    background: #E1F5EE;
+    background: rgba(29,158,117,0.12);
     border-left: 4px solid #0F6E56;
   }
   .result-card.fake {
-    background: #FAECE7;
+    background: rgba(216,90,48,0.1);
     border-left: 4px solid #D85A30;
   }
   .result-label {
@@ -125,8 +134,9 @@ st.markdown("""
   .result-conf.real { color: #0F6E56; }
   .result-conf.fake { color: #D85A30; }
 
+  /* ── CONFIDENCE BAR ── */
   .conf-bar-bg {
-    background: rgba(255,255,255,0.6);
+    background: rgba(128,128,128,0.15);
     border-radius: 2px;
     height: 8px;
     width: 100%;
@@ -139,14 +149,16 @@ st.markdown("""
   .conf-bar-fill.real { background: #0F6E56; }
   .conf-bar-fill.fake { background: #D85A30; }
 
+  /* ── TOP WORDS ── */
   .words-label {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #444441;
-    margin: 1.25rem 0 0.6rem;
+    color: var(--text-color);
+    opacity: 0.65;
+    margin: 1.5rem 0 0.65rem;
   }
   .word-pills {
     display: flex;
@@ -158,48 +170,75 @@ st.markdown("""
     font-size: 11px;
     font-weight: 500;
     color: #0F6E56;
-    background: #E1F5EE;
-    border: 0.5px solid #9FE1CB;
+    background: rgba(29,158,117,0.1);
+    border: 0.5px solid rgba(29,158,117,0.3);
     padding: 0.3rem 0.75rem;
     border-radius: 2px;
   }
 
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 0.5px solid rgba(128,128,128,0.2);
+    margin: 2rem 0;
+  }
+
+  /* ── ABOUT BOX ── */
+  .about-box {
+    background: var(--secondary-background-color);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-color);
+    opacity: 0.85;
+    line-height: 1.7;
+  }
+  .about-box strong {
+    color: #0F6E56;
+    font-weight: 600;
+  }
+
+  /* ── FOOTER ── */
   .footer {
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 0.5px solid rgba(44,44,42,0.12);
+    border-top: 0.5px solid rgba(128,128,128,0.2);
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #5F5E5A;
+    color: var(--text-color);
+    opacity: 0.45;
     text-align: center;
   }
   .footer a {
     color: #1D9E75;
     text-decoration: none;
+    opacity: 1;
   }
 
+  /* ── STREAMLIT OVERRIDES ── */
   div[data-testid="stTextArea"] textarea {
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     font-weight: 400;
     line-height: 1.7;
     border-radius: 4px;
-    border: 0.5px solid rgba(44,44,42,0.25);
-    background: #FAFAF8;
-    color: #1A1A18;
+    border: 0.5px solid rgba(128,128,128,0.25);
+    background: var(--secondary-background-color);
+    color: var(--text-color);
   }
-  div[data-testid="stTextArea"] label {
+  div[data-testid="stTextArea"] label p {
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 500;
-    color: #1A1A18;
+    color: var(--text-color);
   }
   div[data-testid="stButton"] button {
     font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.03em;
     background: #0F6E56;
@@ -208,9 +247,31 @@ st.markdown("""
     border-radius: 2px;
     padding: 0.75rem 1.5rem;
     width: 100%;
+    transition: background 0.18s;
   }
   div[data-testid="stButton"] button:hover {
     background: #085041;
+    color: white;
+  }
+  div[data-testid="stExpander"] {
+    border: 0.5px solid rgba(128,128,128,0.2);
+    border-radius: 4px;
+  }
+  div[data-testid="stExpander"] summary p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  div[data-testid="stWarning"] {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+  }
+  div[data-testid="stSpinner"] p {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: #1D9E75;
   }
 </style>
 """, unsafe_allow_html=True)
@@ -221,7 +282,8 @@ st.markdown("""
   <div class="header-sub">ML · NLP · Classification</div>
   <div class="header-title">Fake News <em>Detector</em></div>
   <div class="header-meta">
-    Random Forest + TF-IDF · 98.33% accuracy · Accenture × Break Through Tech AI Studio 2025
+    Random Forest + TF-IDF · 98.33% accuracy<br>
+    Accenture × Break Through Tech AI Studio 2025
   </div>
   <div class="header-links">
     <a class="header-link" href="https://chinyereeu.github.io" target="_blank">Portfolio</a>
@@ -231,39 +293,41 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# ── Load model ──
 model, vectorizer = load_model()
 
+# ── Text input ──
 article = st.text_area(
     "Paste article text here",
-    height=250,
-    placeholder="Paste a news article here...",
+    height=260,
+    placeholder="Paste a news article here — headlines, body text, or both...",
     label_visibility="visible"
 )
 
-# ── Article stats ──
+# ── Live article stats ──
 if article.strip():
-    word_count = len(article.split())
-    char_count = len(article)
-    sentence_count = article.count('.') + article.count('!') + article.count('?')
+    word_count  = len(article.split())
+    char_count  = len(article)
+    sent_count  = sum(article.count(p) for p in ['.', '!', '?'])
     st.markdown(f"""
     <div class="stats-row">
       <div class="stat-pill"><span>{word_count}</span> words</div>
       <div class="stat-pill"><span>{char_count}</span> characters</div>
-      <div class="stat-pill"><span>{sentence_count}</span> sentences</div>
+      <div class="stat-pill"><span>{sent_count}</span> sentences</div>
     </div>
     """, unsafe_allow_html=True)
 
-if st.button("Analyze", use_container_width=True):
+# ── Analyze button ──
+if st.button("Analyze article", use_container_width=True):
     if not article.strip():
         st.warning("Please paste some article text first.")
     elif len(article.split()) < 20:
-        st.warning("Article is too short for reliable classification. Please paste more text.")
+        st.warning("Article is too short — paste more text for a reliable prediction.")
     else:
-        with st.spinner("Analyzing..."):
+        with st.spinner("Analyzing linguistic patterns..."):
             label, confidence, top_words = predict(article, model, vectorizer)
 
-        conf_pct = int(confidence * 100)
-        bar_width = conf_pct
+        conf_pct  = int(confidence * 100)
 
         if label == 1:
             st.markdown(f"""
@@ -271,7 +335,7 @@ if st.button("Analyze", use_container_width=True):
               <div class="result-label real">✅ Real News</div>
               <div class="result-conf real">Confidence: {conf_pct}%</div>
               <div class="conf-bar-bg">
-                <div class="conf-bar-fill real" style="width:{bar_width}%"></div>
+                <div class="conf-bar-fill real" style="width:{conf_pct}%"></div>
               </div>
             </div>
             """, unsafe_allow_html=True)
@@ -281,29 +345,44 @@ if st.button("Analyze", use_container_width=True):
               <div class="result-label fake">❌ Fake News</div>
               <div class="result-conf fake">Confidence: {conf_pct}%</div>
               <div class="conf-bar-bg">
-                <div class="conf-bar-fill fake" style="width:{bar_width}%"></div>
+                <div class="conf-bar-fill fake" style="width:{conf_pct}%"></div>
               </div>
             </div>
             """, unsafe_allow_html=True)
 
-        pills = " ".join([f'<span class="word-pill">{w}</span>' for w, _ in top_words])
+        # ── Top words ──
+        pills = " ".join([
+            f'<span class="word-pill">{w}</span>'
+            for w, _ in top_words
+        ])
         st.markdown(f"""
         <div class="words-label">Top contributing words</div>
         <div class="word-pills">{pills}</div>
         """, unsafe_allow_html=True)
 
+        # ── About this prediction ──
+        st.markdown("<hr class='divider'>", unsafe_allow_html=True)
         with st.expander("About this prediction"):
-            st.write(f"""
-                The model analyzed the linguistic patterns in your article and compared
-                them against 45,000 training examples. The top words shown above were
-                the strongest signals in your text that influenced this classification.
-                Model accuracy on held-out test data: **98.33%**
-            """)
+            st.markdown(f"""
+            <div class="about-box">
+              The model analyzed the linguistic patterns in your article and compared
+              them against <strong>45,000 training examples</strong>. The top words
+              shown above were the strongest signals in your text that influenced
+              this classification.<br><br>
+              Bias mitigation was applied during training — the Reuters source tag
+              (present in 99.8% of real news) was removed to ensure the model learned
+              genuine linguistic patterns rather than source shortcuts.<br><br>
+              Model accuracy on held-out test data: <strong>98.33%</strong> ·
+              ROC-AUC: <strong>99.71%</strong>
+            </div>
+            """, unsafe_allow_html=True)
 
+# ── Footer ──
 st.markdown("""
 <div class="footer">
   Chinyere E. Ugwuanyi &nbsp;·&nbsp;
   <a href="https://chinyereeu.github.io">Portfolio</a> &nbsp;·&nbsp;
-  <a href="https://github.com/ChinyereEU/fake-news-detector">GitHub</a>
+  <a href="https://github.com/ChinyereEU/fake-news-detector">GitHub</a> &nbsp;·&nbsp;
+  <a href="https://www.linkedin.com/in/chinyere-ugwuanyi">LinkedIn</a>
 </div>
 """, unsafe_allow_html=True)
