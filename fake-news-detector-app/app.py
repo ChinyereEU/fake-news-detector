@@ -8,67 +8,282 @@ st.set_page_config(
 )
 
 st.markdown("""
-    <style>
-        .main { max-width: 720px; margin: 0 auto; }
-        .result-real { background: #E1F5EE; border-left: 4px solid #0F6E56;
-                       padding: 1rem 1.25rem; border-radius: 4px; margin: 1rem 0; }
-        .result-fake { background: #FAECE7; border-left: 4px solid #D85A30;
-                       padding: 1rem 1.25rem; border-radius: 4px; margin: 1rem 0; }
-        .result-label { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .result-conf  { font-size: 0.9rem; color: #5F5E5A; }
-        .word-pill { display: inline-block; background: #F4F3EF; color: #0F6E56;
-                     font-family: monospace; font-size: 0.75rem; padding: 3px 10px;
-                     border-radius: 2px; margin: 3px; }
-    </style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+  html, body, [class*="css"] {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .header {
+    padding: 2rem 0 1rem;
+    border-bottom: 0.5px solid rgba(44,44,42,0.12);
+    margin-bottom: 2rem;
+  }
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #1A1A18;
+    margin-bottom: 0.25rem;
+  }
+  .header-title em {
+    font-style: italic;
+    color: #1D9E75;
+  }
+  .header-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #1D9E75;
+    margin-bottom: 0.75rem;
+  }
+  .header-meta {
+    font-size: 12px;
+    color: #5F5E5A;
+    font-weight: 300;
+  }
+  .header-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+  .header-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0F6E56;
+    text-decoration: none;
+    padding: 0.3rem 0.75rem;
+    border: 0.5px solid #9FE1CB;
+    border-radius: 2px;
+  }
+  .header-link:hover {
+    background: #E1F5EE;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .stat-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #5F5E5A;
+    background: #F4F3EF;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+  }
+  .stat-pill span {
+    color: #1D9E75;
+    font-weight: 500;
+  }
+
+  .result-card {
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0;
+  }
+  .result-card.real {
+    background: #E1F5EE;
+    border-left: 3px solid #0F6E56;
+  }
+  .result-card.fake {
+    background: #FAECE7;
+    border-left: 3px solid #D85A30;
+  }
+  .result-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+  .result-label.real { color: #085041; }
+  .result-label.fake { color: #993C1D; }
+  .result-conf {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .result-conf.real { color: #0F6E56; }
+  .result-conf.fake { color: #D85A30; }
+
+  .conf-bar-bg {
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+    height: 6px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .conf-bar-fill {
+    height: 6px;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .conf-bar-fill.real { background: #0F6E56; }
+  .conf-bar-fill.fake { background: #D85A30; }
+
+  .words-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #5F5E5A;
+    margin: 1rem 0 0.5rem;
+  }
+  .word-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .word-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #0F6E56;
+    background: #E1F5EE;
+    border: 0.5px solid #9FE1CB;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid rgba(44,44,42,0.12);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #888780;
+    text-align: center;
+  }
+  .footer a {
+    color: #1D9E75;
+    text-decoration: none;
+  }
+
+  div[data-testid="stTextArea"] textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 0.5px solid rgba(44,44,42,0.22);
+    background: #FAFAF8;
+  }
+  div[data-testid="stButton"] button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    background: #0F6E56;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 0.6rem 1.5rem;
+    width: 100%;
+  }
+  div[data-testid="stButton"] button:hover {
+    background: #085041;
+  }
+</style>
 """, unsafe_allow_html=True)
 
-st.title("🔍 Fake News Detector")
-st.caption("Paste any news article below to classify it as Real or Fake.")
-st.caption("Built with Random Forest + TF-IDF · 98.33% accuracy · Accenture × Break Through Tech AI Studio 2025")
+# ── Header ──
+st.markdown("""
+<div class="header">
+  <div class="header-sub">ML · NLP · Classification</div>
+  <div class="header-title">Fake News <em>Detector</em></div>
+  <div class="header-meta">
+    Random Forest + TF-IDF · 98.33% accuracy · Accenture × Break Through Tech AI Studio 2025
+  </div>
+  <div class="header-links">
+    <a class="header-link" href="https://chinyereeu.github.io" target="_blank">Portfolio</a>
+    <a class="header-link" href="https://github.com/ChinyereEU/fake-news-detector" target="_blank">GitHub</a>
+    <a class="header-link" href="https://www.linkedin.com/in/chinyere-ugwuanyi" target="_blank">LinkedIn</a>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
 model, vectorizer = load_model()
 
 article = st.text_area(
     "Paste article text here",
     height=250,
-    placeholder="Paste a news article here..."
+    placeholder="Paste a news article here...",
+    label_visibility="visible"
 )
+
+# ── Article stats ──
+if article.strip():
+    word_count = len(article.split())
+    char_count = len(article)
+    sentence_count = article.count('.') + article.count('!') + article.count('?')
+    st.markdown(f"""
+    <div class="stats-row">
+      <div class="stat-pill"><span>{word_count}</span> words</div>
+      <div class="stat-pill"><span>{char_count}</span> characters</div>
+      <div class="stat-pill"><span>{sentence_count}</span> sentences</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 if st.button("Analyze", use_container_width=True):
     if not article.strip():
         st.warning("Please paste some article text first.")
-    elif len(article.strip()) < 50:
+    elif len(article.split()) < 20:
         st.warning("Article is too short for reliable classification. Please paste more text.")
     else:
         with st.spinner("Analyzing..."):
             label, confidence, top_words = predict(article, model, vectorizer)
 
+        conf_pct = int(confidence * 100)
+        bar_width = conf_pct
+
         if label == 1:
             st.markdown(f"""
-                <div class="result-real">
-                    <div class="result-label">✅ Real News</div>
-                    <div class="result-conf">Confidence: {confidence:.1%}</div>
-                </div>
+            <div class="result-card real">
+              <div class="result-label real">✅ Real News</div>
+              <div class="result-conf real">Confidence: {conf_pct}%</div>
+              <div class="conf-bar-bg">
+                <div class="conf-bar-fill real" style="width:{bar_width}%"></div>
+              </div>
+            </div>
             """, unsafe_allow_html=True)
         else:
             st.markdown(f"""
-                <div class="result-fake">
-                    <div class="result-label">❌ Fake News</div>
-                    <div class="result-conf">Confidence: {confidence:.1%}</div>
-                </div>
+            <div class="result-card fake">
+              <div class="result-label fake">❌ Fake News</div>
+              <div class="result-conf fake">Confidence: {conf_pct}%</div>
+              <div class="conf-bar-bg">
+                <div class="conf-bar-fill fake" style="width:{bar_width}%"></div>
+              </div>
+            </div>
             """, unsafe_allow_html=True)
 
-        st.markdown("**Top contributing words:**")
         pills = " ".join([f'<span class="word-pill">{w}</span>' for w, _ in top_words])
-        st.markdown(pills, unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="words-label">Top contributing words</div>
+        <div class="word-pills">{pills}</div>
+        """, unsafe_allow_html=True)
 
         with st.expander("About this prediction"):
             st.write(f"""
-                The model analyzed the linguistic patterns in your article and compared them
-                against {45000:,} training examples. The top words shown above were the
-                strongest signals in your text that influenced this classification.
+                The model analyzed the linguistic patterns in your article and compared
+                them against 45,000 training examples. The top words shown above were
+                the strongest signals in your text that influenced this classification.
                 Model accuracy on held-out test data: **98.33%**
             """)
 
-st.divider()
-st.caption("Chinyere E. Ugwuanyi · [Portfolio](https://chinyereeu.github.io) · [GitHub](https://github.com/ChinyereEU/fake-news-detector)")
+st.markdown("""
+<div class="footer">
+  Chinyere E. Ugwuanyi &nbsp;·&nbsp;
+  <a href="https://chinyereeu.github.io">Portfolio</a> &nbsp;·&nbsp;
+  <a href="https://github.com/ChinyereEU/fake-news-detector">GitHub</a>
+</div>
+""", unsafe_allow_html=True)
