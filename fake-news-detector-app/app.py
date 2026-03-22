@@ -9,23 +9,25 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
 
   html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
   }
 
   .header {
-    padding: 2rem 0 1rem;
-    border-bottom: 0.5px solid rgba(44,44,42,0.12);
-    margin-bottom: 2rem;
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 0.5px solid rgba(44,44,42,0.18);
+    margin-bottom: 2.5rem;
   }
   .header-title {
     font-family: 'DM Serif Display', serif;
-    font-size: 2.2rem;
+    font-size: 3rem;
     font-weight: 400;
     color: #1A1A18;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.1;
   }
   .header-title em {
     font-style: italic;
@@ -33,31 +35,34 @@ st.markdown("""
   }
   .header-sub {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    font-size: 12px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #1D9E75;
-    margin-bottom: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
   }
   .header-meta {
-    font-size: 12px;
-    color: #5F5E5A;
-    font-weight: 300;
+    font-size: 14px;
+    color: #444441;
+    font-weight: 400;
+    line-height: 1.6;
   }
   .header-links {
     display: flex;
-    gap: 1rem;
-    margin-top: 0.75rem;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
   }
   .header-link {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #0F6E56;
     text-decoration: none;
-    padding: 0.3rem 0.75rem;
+    padding: 0.4rem 1rem;
     border: 0.5px solid #9FE1CB;
     border-radius: 2px;
   }
@@ -67,90 +72,95 @@ st.markdown("""
 
   .stats-row {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
   }
   .stat-pill {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #5F5E5A;
+    color: #444441;
+    font-weight: 500;
     background: #F4F3EF;
-    padding: 0.3rem 0.75rem;
+    padding: 0.4rem 0.85rem;
     border-radius: 2px;
   }
   .stat-pill span {
-    color: #1D9E75;
-    font-weight: 500;
+    color: #0F6E56;
+    font-weight: 600;
   }
 
   .result-card {
     border-radius: 4px;
-    padding: 1.25rem 1.5rem;
-    margin: 1.25rem 0;
+    padding: 1.5rem 1.75rem;
+    margin: 1.5rem 0;
   }
   .result-card.real {
     background: #E1F5EE;
-    border-left: 3px solid #0F6E56;
+    border-left: 4px solid #0F6E56;
   }
   .result-card.fake {
     background: #FAECE7;
-    border-left: 3px solid #D85A30;
+    border-left: 4px solid #D85A30;
   }
   .result-label {
     font-family: 'DM Serif Display', serif;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
+    line-height: 1.2;
   }
   .result-label.real { color: #085041; }
   .result-label.fake { color: #993C1D; }
   .result-conf {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
   }
   .result-conf.real { color: #0F6E56; }
   .result-conf.fake { color: #D85A30; }
 
   .conf-bar-bg {
-    background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.6);
     border-radius: 2px;
-    height: 6px;
+    height: 8px;
     width: 100%;
     margin-bottom: 0.5rem;
   }
   .conf-bar-fill {
-    height: 6px;
+    height: 8px;
     border-radius: 2px;
-    transition: width 0.4s ease;
   }
   .conf-bar-fill.real { background: #0F6E56; }
   .conf-bar-fill.fake { background: #D85A30; }
 
   .words-label {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #5F5E5A;
-    margin: 1rem 0 0.5rem;
+    color: #444441;
+    margin: 1.25rem 0 0.6rem;
   }
   .word-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.5rem;
   }
   .word-pill {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
+    font-weight: 500;
     color: #0F6E56;
     background: #E1F5EE;
     border: 0.5px solid #9FE1CB;
-    padding: 0.2rem 0.6rem;
+    padding: 0.3rem 0.75rem;
     border-radius: 2px;
   }
 
@@ -159,10 +169,11 @@ st.markdown("""
     padding-top: 1.5rem;
     border-top: 0.5px solid rgba(44,44,42,0.12);
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.06em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #888780;
+    color: #5F5E5A;
     text-align: center;
   }
   .footer a {
@@ -172,21 +183,30 @@ st.markdown("""
 
   div[data-testid="stTextArea"] textarea {
     font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
     border-radius: 4px;
-    border: 0.5px solid rgba(44,44,42,0.22);
+    border: 0.5px solid rgba(44,44,42,0.25);
     background: #FAFAF8;
+    color: #1A1A18;
+  }
+  div[data-testid="stTextArea"] label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1A1A18;
   }
   div[data-testid="stButton"] button {
     font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
     background: #0F6E56;
     color: white;
     border: none;
     border-radius: 2px;
-    padding: 0.6rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     width: 100%;
   }
   div[data-testid="stButton"] button:hover {
